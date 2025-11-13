@@ -47,7 +47,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public User(){}
+    public User(){} // Because JPA and Hibernate use reflection to create entity objects, and they need a no-argument (empty) constructor to instantiate the class at runtime.
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
