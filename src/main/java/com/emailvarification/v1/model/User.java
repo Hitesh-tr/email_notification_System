@@ -38,8 +38,8 @@ public class User implements UserDetails {
     @Column(name = "verification_code")
     private String verificationCode;
 
-    @Column(name = "verification_expriration")
-    private LocalDateTime verificationExpriration;
+    @Column(name = "verification_expiration")
+    private LocalDateTime verificationExpiration;
 
     public User(String username, String password, String email) {
         this.username = username;
