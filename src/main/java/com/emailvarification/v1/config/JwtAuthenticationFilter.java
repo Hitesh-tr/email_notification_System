@@ -42,15 +42,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
 
+        //This lets unauthenticated requests (like /login, /register) through.
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
 
         try{
-            final String jwt = authHeader.substring(7);
+            final String jwt = authHeader.substring(7); // remove "Bearer "
             final String userEmail = jwtService.extractUsername(jwt);
 
+            /*
+            Spring Security stores the current user here.
+            If someone’s already authenticated (e.g., session reuse), skip.
+             */
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if(userEmail != null && authentication == null){
